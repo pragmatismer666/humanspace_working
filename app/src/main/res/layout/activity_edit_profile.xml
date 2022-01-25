@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:id="@+id/edit_container"
+    tools:context=".User.Infrastructure.Activities.EditProfileActivity">
+
+    <RelativeLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:background="@color/white_top"
+        android:elevation="10dp">
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/close_edit_profile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_centerVertical="true"
+            android:paddingLeft="-20dp"
+            android:elevation="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/save_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="Save"
+            android:textStyle="bold"
+            android:textColor="@color/red" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_profile"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/user_avatar"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/change_profile_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Profile Photo"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/red"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/change_fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/full_name"
+                android:layout_marginTop="20dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="50" />
+
+            <EditText
+                android:id="@+id/change_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_bio"
+                android:layout_marginTop="20dp"
+                android:inputType="textImeMultiLine"
+                android:lines="3"
+                android:minLines="3"
+                android:maxLength="160"/>
+
+            <EditText
+                android:id="@+id/change_website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_web"
+                android:layout_marginTop="20dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="50"/>
+
+            <EditText
+                android:id="@+id/change_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/city"
+                android:layout_marginTop="20dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="20"/>
+
+            <EditText
+                android:id="@+id/change_profession"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_prof"
+                android:layout_marginTop="20dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="50"/>
+
+            <EditText
+                android:id="@+id/change_interests"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_int"
+                android:layout_marginTop="20dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="50"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginRight="-5dp"
+                android:padding="10dp"
+                android:background="@drawable/gray_outline_bg"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/open_personal_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Personal Information Settings"
+                    android:textAllCaps="false"
+                    android:background="#00000000"
+                    android:textColor="@color/red"
+                    android:textStyle="bold"
+                    android:textAlignment="textStart"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

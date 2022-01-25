@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/white"
+    tools:context=".User.SigninSignup.SignUp6thScreen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/bar"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:weightSum="4"
+            android:transitionName="progress">
+
+            <View
+                android:layout_width="150dp"
+                android:layout_height="5dp"
+                android:layout_marginStart="1dp"
+                android:background="@color/red"
+                android:layout_weight="2"/>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="5dp"
+                android:layout_marginStart="1dp"
+                android:background="@color/ae"
+                android:layout_weight="2"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/signup_back_btn"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_hs"
+            android:transitionName="transition_back_arrow_btn" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Choose"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:fontFamily="@font/meta_bold"
+                android:transitionName="transition_title_text"/>
+
+            <TextView
+                android:id="@+id/slide_text"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/title_text"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/meta_bold"
+                android:text="account type"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:transitionName="transition_slide_text" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:text=""
+            android:textColor="@color/error_color"
+            android:textAlignment="center" />
+
+        <RadioGroup
+            android:id="@+id/accountRadios"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/personalRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_outline_bg"
+                android:layout_marginTop="10dp"
+                android:buttonTint="@color/colorPrimary"
+                android:checked="true"
+                android:text="@string/personal"
+                android:textColor="@color/gray" />
+
+            <RadioButton
+                android:id="@+id/businessRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_outline_bg"
+                android:layout_marginTop="10dp"
+                android:buttonTint="@color/colorPrimary"
+                android:text="@string/business"
+                android:textColor="@color/gray" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:text="Account types are used to separate business accounts from personal accounts. So, choose one that fits your needs."
+            android:textColor="@color/gray"
+            android:buttonTint="@color/colorPrimary"/>
+
+        <RelativeLayout
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/signup_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="I"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:fontFamily="@font/meta_bold"
+                android:transitionName="transition_title_text"/>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/signup_title_text"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/meta_bold"
+                android:text="am a"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:transitionName="transition_slide_text" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/businessCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RadioGroup
+                android:id="@+id/categoryRadios1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="5">
+
+                <RadioButton
+                    android:id="@+id/carRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:text="@string/car"
+                    android:textColor="@color/black"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <RadioButton
+                    android:id="@+id/cleanersRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="@string/cleaner"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/tutorRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="@string/tutor"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/nanniesRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="@string/nanny"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/doctorsRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="@string/doctor"
+                    android:textColor="@color/black" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/categoryRadios2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="5">
+
+                <RadioButton
+                    android:id="@+id/mechanicsRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="@string/mec"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/lawyersRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="@string/lawyer"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/strippersRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="@string/stripper"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/designers_devRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_outline_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="@string/designer"
+                    android:textColor="@color/black" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/option_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:text="Choose the option that best describes what you do so we can update our maps based on your business."
+            android:textColor="@color/gray"
+            android:buttonTint="@color/colorPrimary"/>
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:text="*By clicking next I consent to give all filled details to HumanSpace, acknowledge that I am aged 16 or over and I agree to the Terms."
+            android:textColor="@color/gray"
+            android:buttonTint="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/check_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:text=""
+            android:textColor="@color/error_color"
+            android:buttonTint="@color/colorPrimary"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/btn_bg"
+                android:elevation="6dp"
+                android:text="@string/next_btn"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:transitionName="transition_next_btn" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loader" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</ScrollView>

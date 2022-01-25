@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".User.SigninSignup.VerifyOTP"
+    android:background="@color/white"
+    android:padding="20dp"
+    android:transitionName="transition_next_btn">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_hs"
+            android:transitionName="transition_back_arrow_btn"/>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"
+            android:transitionName="transition_back_arrow_btn"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/signup_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Verify"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                android:fontFamily="@font/meta_bold"
+                android:transitionName="transition_title_text"/>
+
+            <TextView
+                android:id="@+id/signup_slide_text"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/signup_title_text"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/meta_bold"
+                android:text="OTP"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:transitionName="transition_slide_text" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/otp_verification_code"
+            android:textColor="@color/gray"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"/>
+
+        <TextView
+            android:id="@+id/textPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"/>
+
+        <com.chaos.view.PinView
+            android:id="@+id/pin_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:itemCount="6"
+            app:itemWidth="45dp"
+            app:itemHeight="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            app:lineColor="@color/black"
+            android:itemBackground="@color/light_white"
+            style="@style/PinWidget.PinView"
+            android:inputType="number"
+            android:cursorVisible="true"
+            app:cursorColor="@color/colorPrimary"
+            app:hideLineWhenFilled="true"
+            app:itemRadius="5dp"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:text=""
+            android:textColor="@color/error_color"
+            android:textAlignment="center" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/otp_receive_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/otp_text_receive"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/resend_otp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/otp_receive_text"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/meta_bold"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/otp_code_resend"
+                android:textAlignment="center" />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+            <Button
+                android:id="@+id/verify"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/btn_bg"
+                android:text="@string/otp_btn"
+                android:textColor="@color/white"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:elevation="8dp"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_horizontal"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loader"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</ScrollView>

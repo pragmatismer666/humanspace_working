@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "546902360109",
+    "firebase_url": "https://humanspace-4bf6c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "humanspace-4bf6c",
+    "storage_bucket": "humanspace-4bf6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546902360109:android:368a0c54f1c4ea5689f8a4",
+        "android_client_info": {
+          "package_name": "com.dappcloud.humanspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "546902360109-jv04bcbodk5if27t0srdhbb08r39unro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dappcloud.humanspace",
+            "certificate_hash": "4acafbffaddfb818b0d66795597c6126273105e1"
+          }
+        },
+        {
+          "client_id": "546902360109-ptjig99otqr702i49rdseulqa5j3ahjq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dappcloud.humanspace",
+            "certificate_hash": "f779eb21d459163bd3c174e9471fca070801303f"
+          }
+        },
+        {
+          "client_id": "546902360109-qolt0vt2pq117oqq9d8bo8o139fhkuf2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDehxlLE37zqLZcu65pd5I5LfjNYz9cblw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546902360109-qolt0vt2pq117oqq9d8bo8o139fhkuf2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

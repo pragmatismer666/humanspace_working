@@ -1,0 +1,184 @@
+<resources>
+    <string name="app_name">Human Space</string>
+    <string name="logo_name">Watch the Space</string>
+    <string name="slogan_name">Connecting the dots</string>
+    <string name="powered_by">Powered by dAppCloud</string>
+
+    <!-- OnBoardingScreen Strings-->
+    <string name="first_title">Social Space</string>
+    <string name="second_title">Business Space</string>
+    <string name="third_title">Global Search</string>
+    <string name="forth_title">myMoney Space</string>
+
+    <string name="first_desc">Browse through our list of signed users. Meet new people, connect and chat with people near you. Navigate your space with the help of a map. All in a single application.</string>
+    <string name="second_desc">Put your business on the map and let many of our users know about your business. You can also find out what other businesses are up to.</string>
+    <string name="third_desc">Search our app for any professional, places of interest and so much more.</string>
+    <string name="forth_desc">Send money locally and across the globe to your loved one.</string>
+
+    <!-- Buttons -->
+    <string name="skip_btn">Skip </string>
+    <string name="next_btn">Next</string>
+    <string name="get_started_btn">Lets Get Started</string>
+    <string name="otp_code">We will send a text with a verification code. Message and data rates may apply.</string>
+
+    <!-- Global Space Strings -->
+    <string name="existing_users">Human Space Community </string>
+    <string name="existing_users_desc">Follow accounts before you begin your journey. You will get more engagement based on the people you follow. </string>
+
+    <string name="fuel">Fuel </string>
+    <string name="universities">Universities </string>
+    <string name="schools">Schools </string>
+    <string name="activities">Activities </string>
+    <string name="hospitals">Hospitals </string>
+    <string name="businesses">Businesses </string>
+    <string name="professions">Professions </string>
+    <string name="interests">Interests </string>
+    <string name="people">People </string>
+    <string name="verified_acc">Start Following Accounts </string>
+
+    <!-- Titles & Descriptions -->
+    <string name="featured_locations">Featured Business Accounts </string>
+    <string name="featured">Featured </string>
+    <string name="featured_desc">Featured Celebrity and Famous People Accounts you can Follow. </string>
+    <string name="most_viewed_locations">Most Viewed Places </string>
+    <string name="categories">Categories </string>
+    <string name="view_all">View All </string>
+    <string name="search_text">Search... </string>
+
+    <!-- SignIn-Signup Strings -->
+    <string name="sign_up">Sign Up </string>
+    <string name="sign_in">Sign In </string>
+    <string name="have_account">Already have an account? </string>
+    <string name="no_account">Do not have an account? </string>
+    <string name="create_account">Create Account </string>
+    <string name="start_up_screen_heading">Envisage it\nThrough our lenses </string>
+    <string name="tag_line">Discover and connect with people in your space. </string>
+    <string name="remember_me">Remember Me </string>
+    <string name="forgot_password">Forgot Password </string>
+    <string name="how_we_work">How we work? </string>
+
+    <string name="enter_username">Username </string>
+    <string name="bus_cats">Business Categories </string>
+    <string name="password">Create Password </string>
+    <string name="re_password">Re-enter Password </string>
+    <string name="full_name">Full Name </string>
+    <string name="accType">Account Type </string>
+    <string name="email">Email </string>
+    <string name="phone">e.g 716555580 </string>
+    <string name="gender">Choose Gender </string>
+    <string name="edit_gender">Gender </string>
+    <string name="age">When is your Birthday? </string>
+    <string name="birthday">Date of birth </string>
+    <string name="male">Male </string>
+    <string name="female">Female </string>
+    <string name="car">Driver </string>
+    <string name="mec">Mechanic </string>
+    <string name="doctor">Doctor </string>
+    <string name="cleaner">Cleaner </string>
+    <string name="stripper">Stripper </string>
+    <string name="nanny">Nanny </string>
+    <string name="designer">Graphics Designer / Web Developer / Software Engineer </string>
+    <string name="lawyer">Lawyer </string>
+    <string name="tutor">Tutor </string>
+    <string name="other">Other </string>
+    <string name="city">Resident City / Town </string>
+    <string name="interested_in">What are you interested in? </string>
+    <string name="profession">What is your profession / specialty? </string>
+    <string name="business">Business </string>
+    <string name="personal">Personal </string>
+    <string name="all_categries">All Categories</string>
+    <string name="upgrade_description">You can upgrade account \nand get more service. \n You can select and upgrade.</string>
+    <string name="searchPlaceholder">What are you looking for?</string>
+    <string name="gays">Gay </string>
+    <string name="gold">Gold </string>
+    <string name="enter_web">Website</string>
+    <string name="enter_bio">Bio</string>
+    <string name="enter_prof">Profession / Specialty</string>
+    <string name="enter_int">Interested In</string>
+    <string name="desc_personal_info">Provide your personal information, even if the account is used fo a business. This will not be part of your public profile save for username and gender.</string>
+    <string name="desc_verify_info">A verified badge is a check that appears next to a humanspace account\'s name to indicate that the account is the authentic presence of a notable public figure, celebrity, global brand or entity it represents.</string>
+    <string name="desc_verify">Submitting a request for verification does not guarantee that your account will be verified.</string>
+    <string name="desc_verify_id">We require a government-issued photo ID that shows your name and date of birth (e.g national identification card, driver\'s license or passport) in order to review your request.</string>
+    <string name="desc_business_id">We require a government-issued photo ID that shows your name and date of birth (e.g national identification card, driver\'s license or passport) or official business documents(tax filing, recent utility bill, article of incorporation) in order to review your request. If you are applying for Taxi or Commuting services it is highly encouraged you attach a valid driver\'s license instead.</string>
+    <string name="desc_business_info">A business account indicator appears below humanspace account\'s name to indicate that the account has been registered as the authentic presence of a notable global brand, business, product, service or entity it represents for business purposes.</string>
+    <string name="desc_business">Submitting a request for a business account does not guarantee that your account will be verified.</string>
+
+    <!-- OTP-Verification Strings -->
+    <string name="otp_code_text">Code </string>
+    <string name="otp_verify">My </string>
+    <string name="otp_verification_code">Enter One Time Password\nsent via sms to</string>
+    <string name="otp_send_code_desc">We will send One Time Password\non this mobile number\nwithin a minute. </string>
+    <string name="otp_text_receive">Didn\'t receive the OTP\? </string>
+    <string name="otp_code_resend">Resend OTP </string>
+    <string name="otp_btn">Verify </string>
+    <string name="send">Send </string>
+
+    <!-- Forget-Password Strings -->
+    <string name="forget_password">Forgot your password\? </string>
+    <string name="recover_password">Account recovery </string>
+    <string name="password_updated">Password updated </string>
+    <string name="password_updated_msg">Your password was updated successfully. You can now sign in into your account.</string>
+    <string name="account_email">Provide your account\'s username for which you want to reset your password\! </string>
+    <string name="recovery_option">Select one of the options below to reset your password: </string>
+    <string name="via_sms">via sms: </string>
+    <string name="via_email">via email: </string>
+    <string name="via_sms_desc">OTP will be sent to your phone</string>
+    <string name="via_email_desc">OTP will be sent to your email</string>
+    <string name="new_password">Create new password </string>
+    <string name="new_password_desc">Create a new, strong password and don\'t reuse it for other accounts. </string>
+    <string name="create_password">New password </string>
+    <string name="confirm_password">Confirm password </string>
+    <string name="update_button">Update </string>
+
+    <!-- Fragments Infrastructure -->
+    <string name="dashboard_fragment">Dashboard fragment</string>
+    <string name="people_fragment">People fragment</string>
+    <string name="messages_fragment">Messages fragment</string>
+    <string name="profile_fragment">User Profile fragment</string>
+
+    <string name="search">Search</string>
+    <string name="map_settings">Map Settings</string>
+    <string name="home">Home</string>
+    <string name="create_new">Create</string>
+    <string name="messages">Messages</string>
+    <string name="send_money">Send Money</string>
+    <string name="discover_people">Discover People</string>
+    <string name="guide">Guide</string>
+    <string name="account">Account</string>
+    <string name="stories">Stories</string>
+    <string name="status">Status and Voices Activities</string>
+    <string name="story">New Story</string>
+    <string name="new_post">New Post</string>
+    <string name="security">Security</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="about">About</string>
+    <string name="logout">signOut</string>
+    <string name="share">Share this app</string>
+    <string name="rate">Rate this app</string>
+    <string name="activity">Account Activity</string>
+    <string name="close_friend">Like Account</string>
+    <string name="access_token">sk.eyJ1IjoibWF0c2hhYmEiLCJhIjoiY2tuY2Njam9qMGRzaTJvcDVpanZwYTlndiJ9.5J1PmPhY4vy9d4KHvIAdjg</string>
+    <string name="mapStyleUrl">mapbox://styles/matshaba/ckn09kdl40x5217lib5pstr3m</string>
+    <string name="what_are_you_looking_for">What are you looking for?</string>
+    <string name="gaysUpgraded">Your account has gays permission.</string>
+    <string name="goldUpgraded">Your account has gold permission.</string>
+
+
+    <string name="no_status">Nothing to Show</string>
+    <string name="no_status_desc">No activities from your friends. To see more follow more accounts or add friends and increase feeds engagement.</string>
+    <string name="share_post">Share your first Post</string>
+    <string name="share_post_desc">Get started by posting your first photo or video within your first use for higher engagement.</string>
+    <string name="follow_people">Follow Accounts</string>
+    <string name="follow_people_desc">You have to follow people first to enjoy using this platform. HumanSpace is all about connecting people together.</string>
+    <string name="online_people">No Online Accounts</string>
+    <string name="online_people_desc">None of the accounts you follow are online. Follow more people for higher engagement. HumanSpace is all about connecting people together.</string>
+    <string name="chat_request">No New Chat Requests</string>
+    <string name="chat_request_desc">No chat requests from any of your followers. Follow more people for higher engagement. HumanSpace is all about connecting people together.</string>
+    <string name="chat">No Chats</string>
+    <string name="chat_desc">No Chats from any of your followers and you have not sent any chats. Start chatting with the accounts you follow. HumanSpace is all about connecting people together.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

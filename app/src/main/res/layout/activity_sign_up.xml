@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".User.SigninSignup.SignUp"
+    android:scrollbars="none"
+    android:background="@color/white"
+    android:transitionName="transition_signup">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_hs"
+            android:transitionName="transition_back_arrow_btn"/>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"
+            android:transitionName="transition_back_arrow_btn"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/signup_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="My"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:fontFamily="@font/meta_bold"
+                android:transitionName="transition_title_text"/>
+
+            <TextView
+                android:id="@+id/signup_slide_text"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/signup_title_text"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/meta_bold"
+                android:text="number is"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:transitionName="transition_slide_text" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:weightSum="6">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/codePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    app:ccp_textSize="14sp"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_showFlag="true"
+                    android:background="@drawable/black_boarder"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center_vertical"/>
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/btn_outline_bg"
+                    android:textCursorDrawable="@color/colorPrimary"
+                    android:drawablePadding="16dp"
+                    android:hint="@string/phone"
+                    android:cursorVisible="true"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimary"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textColor="@color/error_color"
+                android:textAlignment="textEnd" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:text="@string/otp_code"
+            android:textAlignment="center" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/btn_bg"
+                android:text="Send OTP"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:elevation="8dp"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_horizontal"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loader"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</ScrollView>

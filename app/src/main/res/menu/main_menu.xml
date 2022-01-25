@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/home"
+            android:icon="@drawable/ic_dashboard"/>
+
+        <item
+            android:id="@+id/nav_messages"
+            android:title="@string/messages"
+            android:icon="@drawable/ic_chat"/>
+
+        <item
+            android:id="@+id/nav_story"
+            android:title="@string/story"
+            android:icon="@drawable/ic_add_a_photo"/>
+
+    </group>
+
+    <item android:title="About">
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_featured"
+                    android:title="@string/featured"
+                    android:icon="@drawable/ic_people"/>
+
+                <item
+                    android:id="@+id/nav_about"
+                    android:title="@string/about"
+                    android:icon="@drawable/ic_info_outline"/>
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="@string/logout"
+                    android:icon="@drawable/ic_lock"/>
+
+            </group>
+
+        </menu>
+    </item>
+
+    <item android:title="Share">
+        <menu>
+
+            <group android:checkableBehavior="none">
+
+                <item
+                    android:id="@+id/nav_share"
+                    android:title="@string/share"
+                    android:icon="@drawable/ic_share"/>
+
+                <item
+                    android:id="@+id/nav_rate"
+                    android:title="@string/rate"
+                    android:icon="@drawable/ic_rate_review"/>
+
+            </group>
+
+        </menu>
+    </item>
+
+</menu>
