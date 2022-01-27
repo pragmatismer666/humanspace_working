@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +17,13 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.dappcloud.humanspace.AdapterClasses.ChatsAdapter.ChatAdapter;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.dappcloud.humanspace.AdapterClasses.ChatAdapter;
 import com.dappcloud.humanspace.Databases.ChatNotifications.APIService;
 import com.dappcloud.humanspace.Databases.ChatNotifications.Client;
 import com.dappcloud.humanspace.Databases.ChatNotifications.Data;
@@ -63,6 +66,10 @@ import retrofit2.Response;
 
 public class ChattingActivity extends AppCompatActivity {
 
+    private RelativeLayout chatImageShowLayout;
+    CircleImageView chatImageShowClose;
+    private ImageView chatImageShowView;
+
     ImageView back_press, online_user, more_options, verified;
     CircleImageView image_profile;
     TextView username, active_text;
@@ -88,6 +95,7 @@ public class ChattingActivity extends AppCompatActivity {
     APIService apiService;
     boolean notify = false;
 
+    @SuppressLint({"ResourceAsColor", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +104,6 @@ public class ChattingActivity extends AppCompatActivity {
         back_press = findViewById(R.id.back_press);
         back_press.setOnClickListener(v -> startActivity(new Intent(ChattingActivity.this, MessageActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -104,12 +111,22 @@ public class ChattingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         profileid = intent.getStringExtra("profileid");
 
+        chatImageShowLayout = findViewById(R.id.chatImageShowLayout);
+        chatImageShowView = findViewById(R.id.chatImageShowView);
+        chatImageShowClose = findViewById(R.id.chatImageShowCloseBtn);
+        Glide.with(this).load(chatImageShowLayout.getContext().getDrawable(R.drawable.ic_close)).transform(new CircleCrop()).into(chatImageShowClose);
+        chatImageShowClose.setCircleBackgroundColor(android.R.color.white);
+        chatImageShowClose.setOnClickListener(v->{
+            chatImageShowLayout.clearFocus();
+            chatImageShowLayout.setVisibility(View.GONE);
+        });
+        chatImageShowLayout.setVisibility(View.GONE);
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-
         image_profile = findViewById(R.id.image_profile);
         online_user = findViewById(R.id.online_user);
         more_options = findViewById(R.id.more_options);
@@ -156,20 +173,16 @@ public class ChattingActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 username.setText(user.getUsername());
                 active_text.setText(user.getStatus());
-
                 if (user.getStatus().equals("Online")) {
                     online_user.setVisibility(View.VISIBLE);
                 } else {
                     online_user.setVisibility(View.GONE);
                 }
-
                 if (user.getIsVerified().equals("Yes")) {
                     verified.setVisibility(View.VISIBLE);
                 }
-
                 readMessages(firebaseUser.getUid(), profileid, user.getImageurl());
             }
 
@@ -250,7 +263,6 @@ public class ChattingActivity extends AppCompatActivity {
                             profileid); //TODO: Change ic_launcher with app logo
 
                     Sender sender = new Sender(data, token.getToken());
-
                     apiService.sendNotification(sender)
                             .enqueue(new Callback<MyResponse>() {
                                 @Override
@@ -291,7 +303,16 @@ public class ChattingActivity extends AppCompatActivity {
                         mChats.add(chat);
                     }
 
-                    chatAdapter = new ChatAdapter(ChattingActivity.this, mChats, imageurl);
+                    chatAdapter = new ChatAdapter(ChattingActivity.this, mChats, imageurl, new ChatAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(Chat item) {
+                            if (item.getType().equals("image")){
+                                chatImageShowLayout.setVisibility(View.VISIBLE);
+                                chatImageShowLayout.requestFocus();
+                                Glide.with(chatImageShowLayout.getContext()).load(item.getMessage()).into(chatImageShowView);
+                            }
+                        }
+                    });
                     recyclerView.setAdapter(chatAdapter);
                 }
             }

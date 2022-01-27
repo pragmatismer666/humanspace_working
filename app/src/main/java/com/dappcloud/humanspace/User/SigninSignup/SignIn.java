@@ -124,7 +124,6 @@ public class SignIn extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     SendOtp();
-
                     progress_bar.setVisibility(View.GONE);
                     signin_btn.setVisibility(View.VISIBLE);
                     sign_up_desc.setVisibility(View.VISIBLE);
@@ -149,6 +148,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void SendOtp() {
+
         codePicker.registerCarrierNumberEditText(phone);
         String userPhone = codePicker.getFullNumberWithPlus().replace("", "");
         String user = username.getText().toString().trim();

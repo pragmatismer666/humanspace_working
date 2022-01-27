@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
-import com.dappcloud.humanspace.AdapterClasses.ChatsAdapter.ChatModulesAdapter;
+import com.dappcloud.humanspace.AdapterClasses.ChatModulesAdapter;
+import com.dappcloud.humanspace.Maps.Utils.Utils;
 import com.dappcloud.humanspace.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;

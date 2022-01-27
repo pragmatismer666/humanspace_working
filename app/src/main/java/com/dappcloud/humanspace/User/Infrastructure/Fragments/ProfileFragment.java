@@ -1,33 +1,33 @@
 package com.dappcloud.humanspace.User.Infrastructure.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.MyPostAdapter;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.MyVideoPostAdapter;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.TextPostAdapter;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.dappcloud.humanspace.AdapterClasses.MyPostAdapter;
+import com.dappcloud.humanspace.AdapterClasses.TextPostAdapter;
 import com.dappcloud.humanspace.Databases.Post;
 import com.dappcloud.humanspace.User.Infrastructure.Activities.AddPostActivity;
 import com.dappcloud.humanspace.User.Infrastructure.Activities.AddStoryActivity;
@@ -36,6 +36,7 @@ import com.dappcloud.humanspace.User.Infrastructure.Activities.ShowFollowersActi
 import com.dappcloud.humanspace.User.SigninSignup.SignIn;
 import com.dappcloud.humanspace.Databases.User;
 import com.dappcloud.humanspace.R;
+import com.dappcloud.humanspace.User.Infrastructure.Activities.FeaturedActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -52,9 +53,12 @@ import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ProfileFragment extends Fragment {
+
+    private RelativeLayout imageShowLayout;
+    CircleImageView imageShowClose;
+    private ImageView imageShowView;
 
     private TextView username_profile, fullname_profile, account_type, followers_profile, following_profile,
             friends_profile, bio_profile, profession_profile, city_profile, gender_profile, interest_profile, website_profile, username_signOut;
@@ -74,17 +78,29 @@ public class ProfileFragment extends Fragment {
     Handler handler = new Handler();
 
     private RecyclerView recycler_view, recycler_view_text, recycler_view_videos;
-    private MyPostAdapter myPostAdapter;
+    MyPostAdapter myPostAdapter;
     private TextPostAdapter textPostAdapter;
-    private MyVideoPostAdapter myVideoPostAdapter;
-    private List<Post> imageList, textList, videoList;
+    List<Post> postList;
 
+    @SuppressLint({"ResourceAsColor", "UseCompatLoadingForDrawables"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         auth = FirebaseAuth.getInstance();
+
+        imageShowLayout = view.findViewById(R.id.imageShowLayout);
+        imageShowView = view.findViewById(R.id.imageShowView);
+        imageShowClose = view.findViewById(R.id.imageShowCloseBtn);
+        Glide.with(this).load(view.getContext().getDrawable(R.drawable.ic_close)).transform(new CircleCrop()).into(imageShowClose);
+        imageShowClose.setCircleBackgroundColor(android.R.color.white);
+        imageShowClose.setOnClickListener(v->{
+            imageShowLayout.clearFocus();
+            imageShowLayout.setVisibility(View.GONE);
+        });
+        imageShowLayout.setVisibility(View.GONE);
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         username_profile = view.findViewById(R.id.username_profile);
@@ -125,37 +141,39 @@ public class ProfileFragment extends Fragment {
             shimmer.stopShimmer();
             shimmer.hideShimmer();
             shimmer.setVisibility(View.GONE);
-
             body.setVisibility(View.VISIBLE);
             app_bar_layout.setVisibility(View.VISIBLE);
         }, 1500);
 
         //Show Only Images
-        recycler_view = view.findViewById(R.id.recycler_view_Images);
+        recycler_view = view.findViewById(R.id.recycler_view);
         recycler_view.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 3);
         recycler_view.setLayoutManager(linearLayoutManager);
-        imageList = new ArrayList<>();
-        myPostAdapter = new MyPostAdapter(getContext(), imageList);
+        postList = new ArrayList<>();
+        myPostAdapter = new MyPostAdapter(getContext(), postList, new MyPostAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Post item) {
+                if ( item.getType().equals("Image") ) {
+                    initializeImageShow(item.getPostUrl());
+                }
+            }
+        });
         recycler_view.setAdapter(myPostAdapter);
+
+        //Show Only Videos
+        recycler_view_videos = view.findViewById(R.id.recycler_view);
+
 
         //Show Only Text
         recycler_view_text = view.findViewById(R.id.recycler_view_text);
         recycler_view_text.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
+        linearLayoutManager2.setReverseLayout(true);
+        linearLayoutManager2.setStackFromEnd(true);
         recycler_view_text.setLayoutManager(linearLayoutManager2);
-        textList = new ArrayList<>();
-        textPostAdapter = new TextPostAdapter(getContext(), textList);
+        textPostAdapter = new TextPostAdapter(getContext(), postList);
         recycler_view_text.setAdapter(textPostAdapter);
-
-        //Show Only Videos
-        recycler_view_videos = view.findViewById(R.id.recycler_view_videos);
-        recycler_view_videos.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager3 = new GridLayoutManager(getContext(), 3);
-        recycler_view_videos.setLayoutManager(linearLayoutManager3);
-        videoList = new ArrayList<>();
-        myVideoPostAdapter = new MyVideoPostAdapter(getContext(), videoList);
-        recycler_view_videos.setAdapter(myVideoPostAdapter);
 
         images.setOnClickListener(v -> {
             recycler_view_text.setVisibility(View.GONE);
@@ -170,19 +188,6 @@ public class ProfileFragment extends Fragment {
             readImagePosts();
         });
 
-        text.setOnClickListener(v -> {
-            recycler_view.setVisibility(View.GONE);
-            recycler_view_videos.setVisibility(View.GONE);
-            videos.setTextColor(getResources().getColor(R.color.ae));
-            images.setTextColor(getResources().getColor(R.color.ae));
-            videos_line.setVisibility(View.GONE);
-            images_line.setVisibility(View.GONE);
-            text.setTextColor(getResources().getColor(R.color.blue));
-            text_line.setVisibility(View.VISIBLE);
-            recycler_view_text.setVisibility(View.VISIBLE);
-            readTextPost();
-        });
-
         videos.setOnClickListener(v -> {
             recycler_view_text.setVisibility(View.GONE);
             recycler_view.setVisibility(View.GONE);
@@ -194,6 +199,19 @@ public class ProfileFragment extends Fragment {
             videos_line.setVisibility(View.VISIBLE);
             recycler_view_videos.setVisibility(View.VISIBLE);
             readVideoPosts();
+        });
+
+        text.setOnClickListener(v -> {
+            recycler_view.setVisibility(View.GONE);
+            recycler_view_videos.setVisibility(View.GONE);
+            videos.setTextColor(getResources().getColor(R.color.ae));
+            images.setTextColor(getResources().getColor(R.color.ae));
+            videos_line.setVisibility(View.GONE);
+            images_line.setVisibility(View.GONE);
+            text.setTextColor(getResources().getColor(R.color.blue));
+            text_line.setVisibility(View.VISIBLE);
+            recycler_view_text.setVisibility(View.VISIBLE);
+            readTextPost();
         });
 
         userDetails();
@@ -233,17 +251,15 @@ public class ProfileFragment extends Fragment {
         edit_business_profile.setOnClickListener(v -> Toast.makeText(getContext(), "Business Profile", Toast.LENGTH_SHORT).show());
 
         promote_business.setOnClickListener(v -> Toast.makeText(getContext(), "Promote Business", Toast.LENGTH_SHORT).show());
-        //Delete Image Post
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(deleteImagePost);
-        itemTouchHelper.attachToRecyclerView(recycler_view);
-        //Delete Text Post
-        ItemTouchHelper itemTouchHelper1 = new ItemTouchHelper(deleteTextPost);
-        itemTouchHelper1.attachToRecyclerView(recycler_view_text);
-        //Delete Video Post
-        ItemTouchHelper itemTouchHelper2 = new ItemTouchHelper(deleteVideoPost);
-        itemTouchHelper2.attachToRecyclerView(recycler_view_videos);
 
         return view;
+
+    }
+
+    private void initializeImageShow(String postUrl) {
+        imageShowLayout.setVisibility(View.VISIBLE);
+        imageShowLayout.requestFocus();
+        Glide.with(imageShowLayout.getContext()).load(postUrl).into(imageShowView);
     }
 
     private void readImagePosts() {
@@ -251,18 +267,41 @@ public class ProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                imageList.clear();
+                postList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Post post = dataSnapshot.getValue(Post.class);
                     if (post.getPublisher().equals(firebaseUser.getUid())) {
-                        if(!post.getType().equals("Text") && !post.getType().equals("Video")) {
-                            if(post.getType().equals("Image")) {
-                                imageList.add(post);
-                            }
+                        if (!post.getType().equals("Video") && !post.getType().equals("Text")) {
+                            postList.add(post);
                         }
                     }
                 }
-                Collections.reverse(imageList);
+                Collections.reverse(postList);
+                myPostAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void readVideoPosts() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Post");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Post post = dataSnapshot.getValue(Post.class);
+                    if (post.getPublisher().equals(firebaseUser.getUid())) {
+                        if (!post.getType().equals("Image") && !post.getType().equals("Text")) {
+                            postList.add(post);
+                        }
+                    }
+                }
+                Collections.reverse(postList);
                 myPostAdapter.notifyDataSetChanged();
             }
 
@@ -278,46 +317,17 @@ public class ProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                textList.clear();
+                postList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Post post = dataSnapshot.getValue(Post.class);
                     if (post.getPublisher().equals(firebaseUser.getUid())) {
-                        if(!post.getType().equals("Video") && !post.getType().equals("Image")) {
-                            if (post.getType().equals("Text")) {
-                                textList.add(post);
-                            }
+                        if (!post.getType().equals("Video") && !post.getType().equals("Image")) {
+                            postList.add(post);
                         }
                     }
                 }
-                Collections.reverse(textList);
-                textPostAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void readVideoPosts() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Post");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                videoList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Post post = dataSnapshot.getValue(Post.class);
-                    if (post.getPublisher().equals(firebaseUser.getUid())) {
-                        if(!post.getType().equals("Text") && !post.getType().equals("Image")) {
-                            if (post.getType().equals("Video")) {
-                                videoList.add(post);
-                            }
-                        }
-                    }
-                }
-                Collections.reverse(videoList);
-                myVideoPostAdapter.notifyDataSetChanged();
+                Collections.reverse(postList);
+                myPostAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -528,83 +538,5 @@ public class ProfileFragment extends Fragment {
         Uri uri = Uri.parse(s);
         startActivity(new Intent(Intent.ACTION_VIEW,uri));
     }
-
-    private ItemTouchHelper.SimpleCallback deleteImagePost = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            myPostAdapter.deletePost(viewHolder.getAdapterPosition());
-        }
-
-        @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.error_color))
-                    .addSwipeLeftLabel("DELETE")
-                    .setSwipeLeftLabelColor(ContextCompat.getColor(getContext(), R.color.white_top))
-                    .addSwipeLeftActionIcon(R.drawable.ic_delete)
-                    .create()
-                    .decorate();
-
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
-    };
-
-    private ItemTouchHelper.SimpleCallback deleteTextPost = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            textPostAdapter.deletePost(viewHolder.getAdapterPosition());
-        }
-
-        @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.error_color))
-                    .addSwipeLeftLabel("DELETE")
-                    .setSwipeLeftLabelColor(ContextCompat.getColor(getContext(), R.color.white_top))
-                    .addSwipeLeftActionIcon(R.drawable.ic_delete)
-                    .create()
-                    .decorate();
-
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
-    };
-
-    private ItemTouchHelper.SimpleCallback deleteVideoPost = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            myVideoPostAdapter.deletePost(viewHolder.getAdapterPosition());
-        }
-
-        @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.error_color))
-                    .addSwipeLeftLabel("DELETE")
-                    .setSwipeLeftLabelColor(ContextCompat.getColor(getContext(), R.color.white_top))
-                    .addSwipeLeftActionIcon(R.drawable.ic_delete)
-                    .create()
-                    .decorate();
-
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
-    };
 
 }

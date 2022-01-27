@@ -22,11 +22,13 @@
         <ImageView
             android:visibility="gone"
             android:id="@+id/add_story"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/black_boarder"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/add_new" />
+            android:src="@drawable/ic_add"
+            app:tint="@color/colorPrimary" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -51,16 +53,16 @@
                 android:layout_marginStart="2dp"
                 android:layout_toEndOf="@id/username_profile"
                 android:src="@drawable/ic_stars"
-                android:tint="@color/red"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:tint="@color/red" />
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/verified"
-                android:tint="@color/colorPrimary"
-                android:src="@drawable/down_arrow" />
+                android:src="@drawable/down_arrow"
+                app:tint="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/logout_bottom_sheet"
@@ -77,8 +79,8 @@
             android:layout_marginEnd="8dp"
             android:layout_toStartOf="@id/profile_menu_bottom_sheet"
             android:layout_centerVertical="true"
-            android:tint="@color/colorPrimary"
-            android:src="@drawable/ic_notifications" />
+            android:src="@drawable/ic_notifications"
+            app:tint="@color/colorPrimary" />
 
         <ImageView
             android:id="@+id/profile_menu_bottom_sheet"
@@ -86,8 +88,8 @@
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:tint="@color/colorPrimary"
-            android:src="@drawable/ic_menu" />
+            android:src="@drawable/ic_menu"
+            app:tint="@color/colorPrimary" />
 
     </RelativeLayout>
 
@@ -363,7 +365,7 @@
                 android:layout_marginEnd="-20dp"
                 android:layout_marginStart="-20dp"
                 android:orientation="horizontal"
-                android:paddingStart="20dp"
+                android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:weightSum="6">
 
@@ -403,34 +405,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/text"
-                        android:layout_width="45dp"
-                        android:layout_height="wrap_content"
-                        android:text="Text"
-                        android:textAllCaps="false"
-                        android:textColor="@color/ae"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:id="@+id/text_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/blue"
-                        android:visibility="gone"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="35dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
                         android:id="@+id/videos"
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
@@ -450,32 +424,48 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:text="Text"
+                        android:textAllCaps="false"
+                        android:textColor="@color/ae"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/text_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/blue"
+                        android:visibility="gone"/>
+                </LinearLayout>
+
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_Images"
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="65dp"
+                android:layout_height="110dp"
                 android:layout_marginTop="2dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_text"
                 android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="65dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_videos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="65dp"
-                android:layout_marginTop="2dp"
-                android:visibility="gone"  />
 
         </LinearLayout>
 
@@ -490,5 +480,29 @@
             layout="@layout/layout_user_profile_item_shimmer"/>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/imageShowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50sp"
+        android:background="#000000">
+
+        <ImageView
+            android:id="@+id/imageShowView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:foregroundGravity="center_horizontal" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageShowCloseBtn"
+            android:layout_width="35sp"
+            android:layout_height="35sp"
+            android:layout_alignEnd="@id/imageShowView"
+            android:background="#FFFFFF"
+            android:src="@drawable/ic_close" />
+
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -13,7 +13,6 @@ public class Common {
     public static User CurrentUser;
     public static List<User> UsersList = new ArrayList<>();
     public static User UserSelected;
-
     public static final int CALL_ACTIVITY_RESULT = 101;
 
     public static float GetBearing(LatLng begin, LatLng end) {

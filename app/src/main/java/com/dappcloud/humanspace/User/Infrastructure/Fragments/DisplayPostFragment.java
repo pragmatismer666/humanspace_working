@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.PostAdapter;
+import com.dappcloud.humanspace.AdapterClasses.PostAdapter;
 import com.dappcloud.humanspace.Databases.Post;
 import com.dappcloud.humanspace.Databases.User;
 import com.dappcloud.humanspace.R;

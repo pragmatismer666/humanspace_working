@@ -75,7 +75,7 @@
                     android:layout_toEndOf="@id/username"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_stars"
-                    android:tint="@color/red" />
+                    emojicon:tint="@color/red" />
 
             </RelativeLayout>
 
@@ -118,7 +118,7 @@
         android:layout_marginTop="10dp"
         android:background="#00000000"
         android:src="@drawable/ic_insert_emoticon"
-        android:tint="@color/amber" />
+        emojicon:tint="@color/amber" />
 
     <RelativeLayout
         android:id="@+id/bottom_bar"
@@ -142,7 +142,6 @@
             android:hint="Message..."
             android:layout_marginStart="5dp"
             emojicon:emojiconSize="28sp"/>
-
     </RelativeLayout>
 
     <ImageButton
@@ -155,7 +154,7 @@
         android:layout_marginTop="10dp"
         android:background="#00000000"
         android:src="@drawable/ic_image"
-        android:tint="@color/ae" />
+        emojicon:tint="@color/ae" />
 
     <ImageButton
         android:id="@+id/btn_send"
@@ -168,6 +167,30 @@
         android:layout_marginTop="10dp"
         android:background="#00000000"
         android:src="@drawable/ic_send"
-        android:tint="@color/blue" />
+        emojicon:tint="@color/blue" />
+
+    <RelativeLayout
+        android:id="@+id/chatImageShowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50sp"
+        android:background="#000000">
+
+        <ImageView
+            android:id="@+id/chatImageShowView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:foregroundGravity="center_horizontal" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/chatImageShowCloseBtn"
+            android:layout_width="35sp"
+            android:layout_height="35sp"
+            android:layout_alignEnd="@id/chatImageShowView"
+            android:background="#FFFFFF"
+            android:src="@drawable/ic_close" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

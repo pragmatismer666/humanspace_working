@@ -22,6 +22,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.module.AppGlideModule;
 import com.dappcloud.humanspace.Databases.User;
 import com.dappcloud.humanspace.Databases.UserLocation;
+import com.dappcloud.humanspace.Databases.ViewList;
 import com.dappcloud.humanspace.Maps.ProfileActivity;
 import com.dappcloud.humanspace.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,6 +38,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.markerview.MarkerView;
@@ -73,58 +75,18 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapOpacity;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapRadius;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapWeight;
 
-class ViewList {
 
-    String username;
-    String account;
-    String category;
-    String gender;
+class SearchResultView {
+
     View view;
     MarkerView markerView;
-    double lat;
-    double lng;
 
-    public ViewList(String username, String account, String category, String gender, View view, MarkerView markerView, Double lat, Double lng) {
-        this.username = username;
-        this.account = account;
-        this.category = category;
-        this.gender = gender;
+    public SearchResultView(View view, MarkerView markerView) {
         this.view = view;
         this.markerView = markerView;
-        this.lat = lat;
-        this.lng = lng;
     }
 
-    public ViewList() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getGender() { return gender; }
-
-    public void setGender(String gender) { this.gender = gender; }
+    public SearchResultView() {}
 
     public View getView() {
         return view;
@@ -141,24 +103,8 @@ class ViewList {
     public void setMarkerView(MarkerView markerView) {
         this.markerView = markerView;
     }
-
-    public Double getLat() {
-        return lat;
-    }
-
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
-
-    public Double getLng() {
-        return lng;
-    }
-
-    public void setLng(Double lng) {
-        this.lng = lng;
-    }
-
 }
+
 
 public class Utils extends AppGlideModule {
 
@@ -168,6 +114,8 @@ public class Utils extends AppGlideModule {
     }
 
     public ArrayList<ViewList> customViews = new ArrayList<ViewList>();
+    public ArrayList<SearchResultView> searchResultLists = new ArrayList<SearchResultView>();
+
     private static Location myLocation = null;
     private String userSetting = "";
 
@@ -257,7 +205,6 @@ public class Utils extends AppGlideModule {
                         markerView = new MarkerView(new LatLng(user.getLocation().getLat(), user.getLocation().getLng()), customView);
                     }
                     markerViewManager.addMarker(markerView);
-                    markerViewManager.onCameraDidChange(true);
                     customView.setOnClickListener(view -> {
                         Common.UserSelected = user;
                         context.startActivity(new Intent(context, ProfileActivity.class));
@@ -294,6 +241,8 @@ public class Utils extends AppGlideModule {
             }
 
         }
+        markerViewManager.onCameraDidChange(true);
+
     }
 
     public LatLng computeOffset(UserLocation myLocation, int r, int s) {
@@ -302,53 +251,6 @@ public class Utils extends AppGlideModule {
         double rangeLng = 360 * s / (earth_length * Math.cos(myLocation.getLat()));
 //        return new LatLng(((Math.random()-0.5)*2)*rangeLat + myLocation.getLat(),((Math.random()-0.5)*2)*rangeLng + myLocation.getLng());
         return new LatLng(((Math.random()-0.5)*2)*rangeLat,((Math.random()-0.5)*2)*rangeLng);
-    }
-
-    public void changeMarkers(Context context, float zoomlevel){
-        if ( zoomlevel > 21.0 ) {
-            for (int i=0;i<customViews.toArray().length;i++){
-                if ( customViews.get(i).getCategory().equals(context.getString(R.string.car))) {
-                    customViews.get(i).getView().setScaleX((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/65000.0/0.3));
-                    customViews.get(i).getView().setScaleY((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/65000.0/0.3));
-                }
-                else if ( customViews.get(i).getAccount().equals(context.getString(R.string.personal)) ) {
-                    if ( customViews.get(i).getCategory().equals(context.getString(R.string.gold)) ) {
-                        customViews.get(i).getView().setScaleX((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/65000.0/0.5));
-                        customViews.get(i).getView().setScaleY((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/65000.0/0.5));
-                    }
-                    else {
-                        customViews.get(i).getView().setScaleX((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/65000.0/1.3));
-                        customViews.get(i).getView().setScaleY((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/65000.0/1.3));
-                    }
-                }
-                else {
-                    customViews.get(i).getView().setScaleX((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/65000.0/0.8));
-                    customViews.get(i).getView().setScaleY((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/65000.0/0.8));
-                }
-            }
-        }
-        else {
-            for (int i=0;i<customViews.toArray().length;i++){
-                if ( customViews.get(i).getCategory().equals(context.getString(R.string.car))) {
-                    customViews.get(i).getView().setScaleX((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/90000.0/0.3));
-                    customViews.get(i).getView().setScaleY((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/90000.0/0.3));
-                }
-                else if ( customViews.get(i).getAccount().equals(context.getString(R.string.personal)) ) {
-                    if ( customViews.get(i).getCategory().equals(context.getString(R.string.gold)) ) {
-                        customViews.get(i).getView().setScaleX((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/90000.0/0.5));
-                        customViews.get(i).getView().setScaleY((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/90000.0/0.5));
-                    }
-                    else {
-                        customViews.get(i).getView().setScaleX((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/90000.0/1.3));
-                        customViews.get(i).getView().setScaleY((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/90000.0/1.3));
-                    }
-                }
-                else {
-                    customViews.get(i).getView().setScaleX((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/90000.0/0.8));
-                    customViews.get(i).getView().setScaleY((float) (zoomlevel*zoomlevel*zoomlevel*zoomlevel/90000.0/0.8));
-                }
-            }
-        }
     }
 
     public void clearMarkers(MarkerViewManager markerViewManager) {
@@ -360,7 +262,10 @@ public class Utils extends AppGlideModule {
     public void showHideMarkers(Context context, ArrayList<String> searchResult) {
         for (int i=0;i<customViews.toArray().length;i++){
             customViews.get(i).getView().setVisibility(View.GONE);
-            if ( searchResult.contains(context.getString(R.string.all_categries)) || searchResult == null){
+            if ( searchResult.equals(new ArrayList<>()) || searchResult.equals(null)) {
+                customViews.get(i).getView().setVisibility(View.VISIBLE);
+            }
+            else if (searchResult.contains(context.getString(R.string.all_categries)) || searchResult.get(0).equals(context.getString(R.string.findMore))){
                 customViews.get(i).getView().setVisibility(View.VISIBLE);
             }
             else {
@@ -378,7 +283,94 @@ public class Utils extends AppGlideModule {
             }
         }
     }
-    //Location Api since in Android 10 apps was crashing while fetching last location using Location Manager
+
+    public void changeMarkers(Context context, float zoomLevel){
+        if ( zoomLevel > 21.0 ) {
+            for (int i=0;i<customViews.toArray().length;i++){
+                if ( customViews.get(i).getCategory().equals(context.getString(R.string.car))) {
+                    customViews.get(i).getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0/0.3));
+                    customViews.get(i).getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0/0.3));
+                }
+                else if ( customViews.get(i).getAccount().equals(context.getString(R.string.personal)) ) {
+                    if ( customViews.get(i).getCategory().equals(context.getString(R.string.gold)) ) {
+                        customViews.get(i).getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0/0.5));
+                        customViews.get(i).getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0/0.5));
+                    }
+                    else {
+                        customViews.get(i).getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0/1.3));
+                        customViews.get(i).getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0/1.3));
+                    }
+                }
+                else {
+                    customViews.get(i).getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0/0.8));
+                    customViews.get(i).getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0/0.8));
+                }
+            }
+            for ( SearchResultView searchResultView : searchResultLists ) {
+                searchResultView.getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0));
+                searchResultView.getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/65000.0));
+            }
+        }
+        else {
+            for (int i=0;i<customViews.toArray().length;i++){
+                if ( customViews.get(i).getCategory().equals(context.getString(R.string.car))) {
+                    customViews.get(i).getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/90000.0/0.3));
+                    customViews.get(i).getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/90000.0/0.3));
+                }
+                else if ( customViews.get(i).getAccount().equals(context.getString(R.string.personal)) ) {
+                    if ( customViews.get(i).getCategory().equals(context.getString(R.string.gold)) ) {
+                        customViews.get(i).getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/90000.0/0.5));
+                        customViews.get(i).getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/90000.0/0.5));
+                    }
+                    else {
+                        customViews.get(i).getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/90000.0/1.3));
+                        customViews.get(i).getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/90000.0/1.3));
+                    }
+                }
+                else {
+                    customViews.get(i).getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/90000.0/0.8));
+                    customViews.get(i).getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/90000.0/0.8));
+                }
+            }
+            for ( SearchResultView searchResultView : searchResultLists ) {
+                searchResultView.getView().setScaleX((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/85000.0));
+                searchResultView.getView().setScaleY((float) (zoomLevel*zoomLevel*zoomLevel*zoomLevel/85000.0));
+            }
+        }
+    }
+
+    // Update Search SDK API result -------------------------------------------------------------------------------------------------------
+    public void updateResultsOnMap(ArrayList<Point> markerCoordinates, MarkerViewManager markerViewManager, Context context, float zoomStatus){
+        if (!searchResultLists.isEmpty()) {
+            for ( SearchResultView searchResultView : searchResultLists) {
+                markerViewManager.removeMarker(searchResultView.getMarkerView());
+            }
+            searchResultLists.clear();
+        }
+        if (!markerCoordinates.isEmpty()) {
+            for ( Point point: markerCoordinates) {
+                try {
+                    View searchResultView = LayoutInflater.from(context).inflate(R.layout.layout_custom_marker, null);
+                    searchResultView.setLayoutParams(new ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+                    ImageView searchMarker = searchResultView.findViewById(R.id.img_user);
+                    Glide.with(context).load(R.drawable.ic_location_on).into(searchMarker);
+                    MarkerView searchMarkerView = new MarkerView(new LatLng(point.latitude(), point.longitude()), searchResultView);
+                    markerViewManager.addMarker(searchMarkerView);
+                    SearchResultView m_searchResultView = new SearchResultView();
+                    m_searchResultView.setView(searchResultView);
+                    m_searchResultView.setMarkerView(searchMarkerView);
+                    searchResultLists.add(m_searchResultView);
+                    searchResultView.setScaleY((float) (zoomStatus * zoomStatus * zoomStatus * zoomStatus / 85000.0 ));
+                    searchResultView.setScaleX((float) (zoomStatus * zoomStatus * zoomStatus * zoomStatus / 85000.0 ));
+                } catch ( Exception err) {
+                    err.printStackTrace();
+                }
+            }
+            markerViewManager.onCameraDidChange(true);
+        }
+    }
+
+    // Location Api since in Android 10 apps was crashing while fetching last location using Location Manager -----------------------------
     public void initLocation(Activity ctx) {
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx);
         requestLocationUpdates(ctx, fusedLocationClient);
@@ -391,8 +383,8 @@ public class Utils extends AppGlideModule {
 
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(2500);
-        locationRequest.setFastestInterval(2500);
+        locationRequest.setInterval(4000);
+        locationRequest.setFastestInterval(4000);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(locationRequest);
         mLocationSettingsRequest = builder.build();
@@ -414,16 +406,12 @@ public class Utils extends AppGlideModule {
                             != PackageManager.PERMISSION_GRANTED &&
                             ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
                                     != PackageManager.PERMISSION_GRANTED) {
-
                         return;
                     }
                     fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
-                }).addOnFailureListener(e -> {
-            Toast.makeText(context, "Please set high priority to fetch location " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        });
+                }).addOnFailureListener(e -> Toast.makeText(context, "Please set high priority to fetch location " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show());
     }
 
-    //Location Api since in Android 10 apps was crashing while fetching last location using Location Manager
     public void fetchLastLocation(Activity context, FusedLocationProviderClient fusedLocationClient) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
@@ -440,12 +428,10 @@ public class Utils extends AppGlideModule {
                 });
     }
 
-    //=====
     public Location getLocation() {
         return myLocation;
     }
 
-    //=====
     public void setLocation(Location location, ArrayList<ViewList> customViews, String userSetting) {
         if (location != null) {
             myLocation = location;
@@ -472,7 +458,7 @@ public class Utils extends AppGlideModule {
         }
     }
 
-
+    // Add Headtmap on the map
     public void addHeatmap(GeoJsonSource geoJsonSource, Style style) {
         style.addSource(geoJsonSource);
         HeatmapLayer layer = new HeatmapLayer("heatmap-id", "source-id");

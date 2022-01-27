@@ -15,7 +15,8 @@
         android:layout_height="50dp"
         android:background="@color/white_top"
         android:elevation="10dp"
-        android:paddingRight="20dp">
+        android:paddingEnd="20dp"
+        tools:ignore="RtlSymmetry">
 
         <ImageView
             android:id="@+id/search_icon"
@@ -33,10 +34,13 @@
             <ImageView
                 android:visibility="gone"
                 android:id="@+id/add_post"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_margin="5dp"
-                android:src="@drawable/add_new"/>
+                android:src="@drawable/ic_add"
+                android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/black_boarder"
+                emojicon:tint="@color/colorPrimary" />
 
             <ImageView
                 android:id="@+id/notifications"
@@ -45,8 +49,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:tint="@color/colorPrimary"
-                android:src="@drawable/ic_notifications"/>
+                android:src="@drawable/ic_notifications"
+                emojicon:tint="@color/colorPrimary" />
 
             <ImageView
                 android:id="@+id/chats"
@@ -54,9 +58,9 @@
                 android:layout_height="24dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginStart="10dp"
-                android:tint="@color/colorPrimary"
                 android:src="@drawable/ic_send"
-                android:rotation="330"/>
+                android:rotation="330"
+                emojicon:tint="@color/colorPrimary" />
 
         </LinearLayout>
 
@@ -104,7 +108,7 @@
                         android:layout_weight="1"
                         android:background="#00000000"
                         android:src="@drawable/ic_insert_emoticon"
-                        android:tint="@color/amber" />
+                        emojicon:tint="@color/amber" />
 
                     <RelativeLayout
                         android:id="@+id/bottom_bar"
@@ -137,7 +141,7 @@
                         android:layout_weight="1"
                         android:background="#00000000"
                         android:src="@drawable/ic_check"
-                        android:tint="@color/blue" />
+                        emojicon:tint="@color/blue" />
 
                 </LinearLayout>
 
@@ -347,7 +351,8 @@
                     android:id="@+id/first_timer"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:src="@drawable/add_new"/>
+                    android:src="@drawable/btn_post"
+                    emojicon:tint="@color/blue" />
 
                 <TextView
                     android:id="@+id/first_post"
@@ -372,5 +377,29 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/videoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50sp"
+        android:background="#000000">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:foregroundGravity="center_horizontal" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/videoCloseBtn"
+            android:layout_width="35sp"
+            android:layout_height="35sp"
+            android:layout_alignEnd="@id/videoView"
+            android:background="#FFFFFF"
+            android:src="@drawable/ic_close" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

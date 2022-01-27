@@ -18,9 +18,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.GridImageAdapter;
-import com.dappcloud.humanspace.AdapterClasses.StatusesAdapter.StoryAllAdapter;
-import com.dappcloud.humanspace.AdapterClasses.StatusesAdapter.StoryCloseFreindsAdapter;
+import com.dappcloud.humanspace.AdapterClasses.GridImageAdapter;
+import com.dappcloud.humanspace.AdapterClasses.StoryAllAdapter;
+import com.dappcloud.humanspace.AdapterClasses.StoryCloseFreindsAdapter;
 import com.dappcloud.humanspace.Databases.Post;
 import com.dappcloud.humanspace.Databases.Story;
 import com.dappcloud.humanspace.R;

@@ -44,7 +44,7 @@
     <string name="categories">Categories </string>
     <string name="view_all">View All </string>
     <string name="search_text">Search... </string>
-
+    <string name="searchSave">"There is no category in search list, But Get success to save this key into DB and it will be appeared in search list as soon."</string>
     <!-- SignIn-Signup Strings -->
     <string name="sign_up">Sign Up </string>
     <string name="sign_in">Sign In </string>
@@ -69,8 +69,12 @@
     <string name="edit_gender">Gender </string>
     <string name="age">When is your Birthday? </string>
     <string name="birthday">Date of birth </string>
+
+    <!--    Search List  -->
+    <string name="findMore">Find More</string>
     <string name="male">Male </string>
     <string name="female">Female </string>
+    <string name="singles">Single </string>
     <string name="car">Driver </string>
     <string name="mec">Mechanic </string>
     <string name="doctor">Doctor </string>
@@ -177,8 +181,5 @@
     <string name="chat_request_desc">No chat requests from any of your followers. Follow more people for higher engagement. HumanSpace is all about connecting people together.</string>
     <string name="chat">No Chats</string>
     <string name="chat_desc">No Chats from any of your followers and you have not sent any chats. Start chatting with the accounts you follow. HumanSpace is all about connecting people together.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

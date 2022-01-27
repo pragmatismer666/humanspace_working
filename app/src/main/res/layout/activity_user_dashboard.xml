@@ -39,7 +39,7 @@
         android:src="@drawable/btn_post"
         app:elevation="8dp"
         app:fabSize="normal"
-        app:maxImageSize="40dp"
-        app:layout_anchor="@id/bottom_nav" />
+        app:layout_anchor="@id/bottom_nav"
+        app:maxImageSize="40dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

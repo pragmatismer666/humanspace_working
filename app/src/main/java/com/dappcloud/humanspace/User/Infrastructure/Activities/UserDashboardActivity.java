@@ -6,11 +6,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
@@ -20,7 +22,7 @@ import com.dappcloud.humanspace.Maps.MapsActivity;
 import com.dappcloud.humanspace.Maps.Utils.Common;
 import com.dappcloud.humanspace.Maps.Utils.Utils;
 import com.dappcloud.humanspace.User.Infrastructure.Fragments.PostsFragment;
-import com.dappcloud.humanspace.User.Infrastructure.Fragments.SelectedUserProfileFragment;
+import com.dappcloud.humanspace.User.Infrastructure.Fragments.UserProfileFragment;
 import com.dappcloud.humanspace.R;
 import com.dappcloud.humanspace.User.Infrastructure.Fragments.StoryFragment;
 import com.dappcloud.humanspace.User.Infrastructure.Fragments.ProfileFragment;
@@ -62,28 +64,18 @@ public class UserDashboardActivity extends AppCompatActivity {
 
     private void checkGpsPermission() {
         if ( ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
-            updateLocation();
+            LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if ( manager.isProviderEnabled(LocationManager.GPS_PROVIDER) ) {
+                utils.initLocation(this);
+            }
+            else {
+                Toast.makeText(this, "You need to have gps provider to use this application!", Toast.LENGTH_LONG).show();
+            }
         }
         else {
             Toast.makeText(this, "You need to allow location permission to use this application.", Toast.LENGTH_LONG).show();
         }
-        if (getIntent().hasExtra("profile")){
-            bottomNavigationView.setSelectedItemId(R.id.bottom_nav_profile);
-            getIntent().removeExtra("profile");
-        }
-        else {
-            bottomNavigationView.setSelectedItemId(R.id.bottom_nav_post);
-        }
-    }
-
-    private void updateLocation() {
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if ( manager.isProviderEnabled(LocationManager.GPS_PROVIDER) ) {
-            utils.initLocation(this);
-        }
-        else {
-            Toast.makeText(this, "You need to have gps provider to use this application!", Toast.LENGTH_LONG).show();
-        }
+        bottomNavigationView.setSelectedItemId(R.id.bottom_nav_post);
     }
 
     private void handlePostButton() {
@@ -99,7 +91,7 @@ public class UserDashboardActivity extends AppCompatActivity {
             editor.putString("profileid", publisher);
             editor.apply();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new SelectedUserProfileFragment()).commit();
+                    new UserProfileFragment()).commit();
         }
     }
 

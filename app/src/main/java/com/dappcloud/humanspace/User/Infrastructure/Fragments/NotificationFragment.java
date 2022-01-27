@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.dappcloud.humanspace.AdapterClasses.UserAdapter.NotificationAdapter;
+import com.dappcloud.humanspace.AdapterClasses.NotificationAdapter;
 import com.dappcloud.humanspace.Databases.Notification;
 import com.dappcloud.humanspace.R;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,17 +1,20 @@
 package com.dappcloud.humanspace.User.Infrastructure.Activities;
 
+import static androidx.core.graphics.TypefaceCompatUtil.getTempFile;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.WindowManager;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,8 +43,10 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -79,15 +84,15 @@ public class AddPostActivity extends AppCompatActivity {
 
         close.setOnClickListener(v -> finish());
         share.setOnClickListener(v -> uploadImage());
-        edit_image.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), AddPostActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+        edit_image.setOnClickListener(v -> {
+             startActivity(new Intent(getApplicationContext(), AddPostActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        });
 
         CropImage.activity()
                 .setAspectRatio(1, 1)
                 .start(AddPostActivity.this);
-
         userDetails();
-
     }
 
     private void userDetails() {
@@ -101,9 +106,7 @@ public class AddPostActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -118,14 +121,11 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
     private void uploadImage() {
-        ProgressDialog pd = new ProgressDialog(this);
-        pd.setMessage("Posting");
-        pd.show();
-
         if (imageUri != null) {
+            ProgressDialog pd = new ProgressDialog(this);
+            pd.setMessage("Posting");
+            pd.show();
             //Compression
-
-
             final StorageReference imageReference = storageReference.child(System.currentTimeMillis()
                     +"."+ getFileExtension(imageUri));
 
@@ -176,11 +176,9 @@ public class AddPostActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
-
             image_added.setImageURI(imageUri);
         } else {
             Toast.makeText(this, "No image was selected, try later!", Toast.LENGTH_SHORT).show();

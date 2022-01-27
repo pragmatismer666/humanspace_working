@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="end"
@@ -46,7 +45,31 @@
                     android:layout_marginLeft="10sp"
                     android:layout_weight="14"
                     android:orientation="horizontal"
-                    android:weightSum="9" />
+                    android:weightSum="9">
+
+                    <EditText
+                        android:id="@+id/searchEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#CC000000"
+                        android:cursorVisible="true"
+                        android:ems="10"
+                        android:hint="@string/what_are_you_looking_for"
+                        android:inputType="textPersonName"
+                        android:paddingLeft="15px"
+                        android:textColor="#D2D2D2"
+                        android:textColorHint="#787878"
+                        android:textCursorDrawable="@drawable/airports_bg" />
+
+                    <ImageView
+                        android:id="@+id/searchView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        mapbox:srcCompat="@drawable/search" />
+
+                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/setBtn"
@@ -65,16 +88,97 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80sp"
-                android:layout_marginRight="120sp" />
+                android:layout_marginRight="120sp"
+                android:layout_marginBottom="200sp"
+                android:isScrollContainer="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="40sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="20sp"
+            android:layout_marginBottom="80sp"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/goldBtn"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="1"
+                mapbox:srcCompat="@drawable/m_gold" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/maleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="1"
+                mapbox:srcCompat="@drawable/m_male" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/femaleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="1"
+                mapbox:srcCompat="@drawable/m_female" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/singleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="1"
+                mapbox:srcCompat="@drawable/m_single" />
 
         </LinearLayout>
 
     </com.mapbox.mapboxsdk.maps.MapView>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/search_container_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30sp">
+
+        <com.mapbox.search.ui.view.SearchBottomSheetView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:elevation="8dp"
+            android:minHeight="10sp">
+
+            <ImageView
+                android:id="@+id/hideSearchUI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="-10sp"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                mapbox:srcCompat="@drawable/orca_composer_popup_active_normal" />
+
+        </com.mapbox.search.ui.view.SearchBottomSheetView>
+
+        <com.mapbox.search.ui.view.place.SearchPlaceBottomSheetView
+            android:id="@+id/search_place_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:elevation="8dp" />
+
+        <com.mapbox.search.ui.view.category.SearchCategoriesBottomSheetView
+            android:id="@+id/search_categories_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:elevation="8dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_nav2"
@@ -104,7 +208,7 @@
         android:src="@drawable/btn_post"
         mapbox:elevation="8dp"
         mapbox:fabSize="normal"
-        mapbox:maxImageSize="40dp"
-        mapbox:layout_anchor="@id/bottom_nav_menu" />
+        mapbox:layout_anchor="@id/bottom_nav_menu"
+        mapbox:maxImageSize="40dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

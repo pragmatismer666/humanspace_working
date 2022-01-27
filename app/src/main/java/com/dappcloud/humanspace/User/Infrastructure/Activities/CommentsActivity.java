@@ -6,13 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.CommentAdapter;
+import com.dappcloud.humanspace.AdapterClasses.CommentAdapter;
 import com.dappcloud.humanspace.Databases.PostComment;
 import com.dappcloud.humanspace.Databases.User;
 import com.dappcloud.humanspace.R;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dappcloud.humanspace">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,6 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +28,13 @@
         <activity android:name=".Maps.PayActivity" />
         <activity android:name=".Maps.ProfileActivity" />
         <activity android:name=".Maps.SettingActivity" />
-        <activity android:name=".Maps.MapsActivity" />
+        <activity android:name=".Maps.MapsActivity"
+            android:windowSoftInputMode="adjustNothing">
+
+        </activity>
+        <activity
+            android:name=".User.Infrastructure.Activities.DisplayVideoPostActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".User.Infrastructure.Activities.AddVideoPostActivity"
             android:windowSoftInputMode="adjustPan" />

@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "546902360109-jv04bcbodk5if27t0srdhbb08r39unro.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dappcloud.humanspace",
-            "certificate_hash": "4acafbffaddfb818b0d66795597c6126273105e1"
-          }
-        },
-        {
           "client_id": "546902360109-ptjig99otqr702i49rdseulqa5j3ahjq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

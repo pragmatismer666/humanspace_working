@@ -213,7 +213,6 @@ public class ChatsFragment extends Fragment {
                         }
                     }
                 }
-
                 contactAdapter.notifyDataSetChanged();
             }
 

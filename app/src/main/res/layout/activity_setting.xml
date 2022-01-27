@@ -121,7 +121,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@id/gmode"
-                    android:checked="false"
+                    android:buttonTint="#0000FF"
+                    android:checked="true"
+                    android:clickable="false"
+                    android:drawableTint="#0000FF"
                     android:text=""
                     android:textSize="16sp" />
 
@@ -197,7 +200,8 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/offmode"
-                        android:clickable="false"
+                        android:buttonTint="#0000FF"
+                        android:drawableTint="#0000FF"
                         android:text=""
                         android:textSize="16sp" />
 
@@ -234,10 +238,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@id/rValueTv"
+                        android:backgroundTint="#000000"
+                        android:cursorVisible="true"
+                        android:drawableTint="#000000"
                         android:ems="10"
                         android:inputType="number"
                         android:paddingLeft="15dp"
-                        android:paddingRight="15dp" />
+                        android:paddingRight="15dp"
+                        android:textCursorDrawable="@color/black" />
 
                 </RelativeLayout>
 
@@ -263,10 +271,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@id/sValueTv"
+                        android:backgroundTint="#000000"
+                        android:cursorVisible="true"
+                        android:drawableTint="#000000"
                         android:ems="10"
                         android:inputType="number"
                         android:paddingLeft="15dp"
-                        android:paddingRight="15dp" />
+                        android:paddingRight="15dp"
+                        android:textCursorDrawable="@color/black" />
                 </RelativeLayout>
 
             </LinearLayout>

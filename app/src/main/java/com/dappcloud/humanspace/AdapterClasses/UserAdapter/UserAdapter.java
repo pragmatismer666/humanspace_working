@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dappcloud.humanspace.Databases.User;
 import com.dappcloud.humanspace.R;
-import com.dappcloud.humanspace.User.Infrastructure.Fragments.SelectedUserProfileFragment;
+import com.dappcloud.humanspace.User.Infrastructure.Fragments.UserProfileFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -83,14 +83,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 editor.apply();
 
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new SelectedUserProfileFragment()).addToBackStack(null).commit();
+                        new UserProfileFragment()).addToBackStack(null).commit();
             } else {
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
                 editor.putString("profileid", user.getUserId());
                 editor.apply();
 
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.followers_container,
-                        new SelectedUserProfileFragment()).addToBackStack(null).commit();
+                        new UserProfileFragment()).addToBackStack(null).commit();
             }
         });
 

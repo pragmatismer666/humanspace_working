@@ -10,8 +10,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="20dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="20dp"
         android:elevation="10dp">
 
         <ImageView
@@ -21,7 +21,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_close"
-            android:tint="@color/blue"/>
+            app:tint="@color/blue" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +47,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:paddingStart="10dp">
+        android:paddingStart="10dp"
+        tools:ignore="RtlSymmetry">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_profile"

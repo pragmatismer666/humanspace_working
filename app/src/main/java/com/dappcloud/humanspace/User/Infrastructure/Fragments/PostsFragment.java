@@ -1,8 +1,13 @@
 package com.dappcloud.humanspace.User.Infrastructure.Fragments;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,15 +24,18 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.GridImageAdapter;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.GridVideoAdapter;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.PostAdapter;
-import com.dappcloud.humanspace.AdapterClasses.PostsAdapter.TextPostAdapter;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.dappcloud.humanspace.AdapterClasses.GridImageAdapter;
+import com.dappcloud.humanspace.AdapterClasses.GridVideoAdapter;
+import com.dappcloud.humanspace.AdapterClasses.PostAdapter;
+import com.dappcloud.humanspace.AdapterClasses.TextPostAdapter;
 import com.dappcloud.humanspace.Databases.Post;
 import com.dappcloud.humanspace.Databases.User;
 import com.dappcloud.humanspace.R;
@@ -45,6 +53,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,6 +72,12 @@ import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
  */
 
 public class PostsFragment extends Fragment {
+
+    private View view;
+
+    private RelativeLayout videoLayout;
+    CircleImageView closeVideo;
+    private VideoView videoView;
 
     private ImageView add_post, chats, notifications;
     private CircleImageView image_profile;
@@ -97,10 +113,24 @@ public class PostsFragment extends Fragment {
     private ShimmerFrameLayout shimmer;
     Handler handler = new Handler();
 
+    @SuppressLint({"UseCompatLoadingForDrawables", "ResourceAsColor"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_posts, container, false);
+        view = inflater.inflate(R.layout.fragment_posts, container, false);
+
+        videoLayout = view.findViewById(R.id.videoLayout);
+        videoLayout.setVisibility(View.GONE);
+        videoView = view.findViewById(R.id.videoView);
+        closeVideo = view.findViewById(R.id.videoCloseBtn);
+        Glide.with(this).load(view.getContext().getDrawable(R.drawable.ic_close)).transform(new CircleCrop()).into(closeVideo);
+        closeVideo.setCircleBackgroundColor(android.R.color.white);
+        closeVideo.setOnClickListener(v->{
+            videoView.setVideoURI(null);
+            videoView.stopPlayback();
+            videoView.clearFocus();
+            videoLayout.setVisibility(View.GONE);
+        });
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -211,7 +241,6 @@ public class PostsFragment extends Fragment {
         hashMap.put("postId", postId);
         hashMap.put("publisher", publisher);
         reference.child(postId).setValue(hashMap);
-
     }
 
     private void checkFollowing() {
@@ -240,6 +269,7 @@ public class PostsFragment extends Fragment {
     private void readAllPost() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Post");
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
@@ -273,6 +303,7 @@ public class PostsFragment extends Fragment {
     private void readImagePosts() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Post");
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
@@ -298,6 +329,7 @@ public class PostsFragment extends Fragment {
     private void readVideoPosts() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Post");
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
@@ -334,10 +366,8 @@ public class PostsFragment extends Fragment {
                 }
                 textPostAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -356,16 +386,12 @@ public class PostsFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 if(user.getAccount().equals("Personal")) {
                     add_post.setVisibility(View.VISIBLE);
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -513,6 +539,35 @@ public class PostsFragment extends Fragment {
         checkFollowing();
     }
 
+    private void initializePlayer(String videoUrl) {
+        videoLayout.setVisibility(View.VISIBLE);
+        videoLayout.requestFocus();
+        videoView.setVideoURI(Uri.parse(videoUrl));
+        ProgressDialog bar = new ProgressDialog(videoLayout.getContext());
+        bar.setTitle("Loading video");
+        bar.setMessage("Please Wait... ");
+        bar.setCancelable(false);
+        bar.show();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                bar.dismiss();
+                view.setClickable(false);
+                videoView.start();
+                MediaController controller = new MediaController(view.getContext());
+                controller.setMediaPlayer(videoView);
+                videoView.setMediaController(controller);
+            }
+        });
+        videoView.setOnCompletionListener(
+                new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        videoView.seekTo(0);
+                    }
+                });
+    }
+
     private void showOnlyText() {
         recycler_view_text.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
@@ -527,7 +582,12 @@ public class PostsFragment extends Fragment {
         recycler_view_images.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager3 = new GridLayoutManager(getContext(), 3);
         recycler_view_videos.setLayoutManager(linearLayoutManager3);
-        videoPostAdapter = new GridVideoAdapter(getContext(), postList);
+        videoPostAdapter = new GridVideoAdapter(getContext(), postList, new GridVideoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Post item) {
+                initializePlayer(item.getPostUrl());
+            }
+        });
         recycler_view_videos.setAdapter(videoPostAdapter);
     }
 
